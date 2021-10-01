@@ -9,11 +9,11 @@ import sk.jojo.questionnaire.domain.dto.QuestionnaireDto;
 @Validated
 public interface QuestionnaireAPI {
 
-  QuestionnaireDto get(Long id);
+	QuestionnaireDto get(Long id);
 
-  QuestionnaireDto create(@Valid QuestionnaireDto dto);
+	QuestionnaireDto create(@Valid QuestionnaireDto dto);
 
-  QuestionnaireDto update(Long id, QuestionnaireDto dto);
+	QuestionnaireDto update(Long id, QuestionnaireDto dto);
 
-  QuestionnaireDto delete(Long id);
+	QuestionnaireDto delete(Long id);
 }

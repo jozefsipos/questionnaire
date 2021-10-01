@@ -23,49 +23,49 @@ import lombok.RequiredArgsConstructor;
 @Builder
 public class QuestionnaireDto {
 
-    /**
-     * The Id.
-     */
-    private Long id;
+	/**
+	 * The Id.
+	 */
+	private Long id;
 
-    /**
-     * The Url.
-     */
-    private String url;
+	/**
+	 * The Url.
+	 */
+	private String url;
 
-    /**
-     * The Name.
-     */
-    @NonNull
-    @NotEmpty
-    private String name;
+	/**
+	 * The Name.
+	 */
+	@NonNull
+	@NotEmpty
+	private String name;
 
-    /**
-     * The Title.
-     */
-    @NonNull
-    @NotEmpty
-    private String title;
+	/**
+	 * The Title.
+	 */
+	@NonNull
+	@NotEmpty
+	private String title;
 
-    /**
-     * The Description.
-     */
-    private String description;
+	/**
+	 * The Description.
+	 */
+	private String description;
 
-    /**
-     * The Effective period start.
-     */
-    @NonNull
-    @NotNull
-    private LocalDate effectivePeriodStart;
+	/**
+	 * The Effective period start.
+	 */
+	@NonNull
+	@NotNull
+	private LocalDate effectivePeriodStart;
 
-    /**
-     * The Effective period end.
-     */
-    private LocalDate effectivePeriodEnd;
+	/**
+	 * The Effective period end.
+	 */
+	private LocalDate effectivePeriodEnd;
 
-    /**
-     * The Items.
-     */
-    private List<QuestionnaireItemDto> items;
+	/**
+	 * The Items.
+	 */
+	private List<QuestionnaireItemDto> questionnaireItems;
 }

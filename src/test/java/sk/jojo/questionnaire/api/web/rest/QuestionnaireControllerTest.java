@@ -32,118 +32,112 @@ import sk.jojo.questionnaire.domain.service.QuestionnaireService;
 @WebMvcTest(controllers = QuestionnaireController.class)
 class QuestionnaireControllerTest {
 
-  /**
-   * The Mock mvc.
-   */
-  @Autowired
-  private MockMvc mockMvc;
+	/**
+	 * The Mock mvc.
+	 */
+	@Autowired
+	private MockMvc mockMvc;
 
-  /**
-   * The Object mapper.
-   */
-  @Autowired
-  private ObjectMapper objectMapper;
+	/**
+	 * The Object mapper.
+	 */
+	@Autowired
+	private ObjectMapper objectMapper;
 
-  /**
-   * The Service mock.
-   */
-  @MockBean
-  private QuestionnaireService serviceMock;
+	/**
+	 * The Service mock.
+	 */
+	@MockBean
+	private QuestionnaireService serviceMock;
 
-  /**
-   * Test get.
-   *
-   * @throws Exception the exception
-   */
-  @Test
-  void testGet() throws Exception {
+	/**
+	 * Test get.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void testGet() throws Exception {
 
-    var expected = new QuestionnaireDto("First questionnaire", UUID.randomUUID().toString(), LocalDate.now());
-    when(serviceMock.get(anyLong())).thenReturn(expected);
+		var expected = new QuestionnaireDto("First questionnaire", UUID.randomUUID().toString(), LocalDate.now());
+		when(serviceMock.get(anyLong())).thenReturn(expected);
 
-    var response = mockMvc.perform(get("/api/questionnaire/{id}", 1L)
-                    .contentType("application/json"))
-            .andExpect(status().isOk()).andReturn();
-    var actual = objectMapper.readValue(response.getResponse().getContentAsString(), QuestionnaireDto.class);
+		var response = mockMvc.perform(get("/api/questionnaire/{id}", 1L).contentType("application/json"))
+				.andExpect(status().isOk()).andReturn();
+		var actual = objectMapper.readValue(response.getResponse().getContentAsString(), QuestionnaireDto.class);
 
-    assertEquals(expected, actual);
-  }
+		assertEquals(expected, actual);
+	}
 
-  /**
-   * Test get should return 404.
-   *
-   * @throws Exception the exception
-   */
-  @Test
-  void test_get_should_return_404() throws Exception {
-    when(serviceMock.get(anyLong())).thenThrow(EntityNotFoundException.class);
+	/**
+	 * Test get should return 404.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void test_get_should_return_404() throws Exception {
+		when(serviceMock.get(anyLong())).thenThrow(EntityNotFoundException.class);
 
-    mockMvc.perform(get("/api/questionnaire/{id}", 1L)
-                    .contentType("application/json"))
-            .andExpect(status().isNotFound())
-            .andExpect(result -> assertEquals(EntityNotFoundException.class, Objects.requireNonNull(result.getResolvedException()).getClass()));
-  }
+		mockMvc.perform(get("/api/questionnaire/{id}", 1L).contentType("application/json"))
+				.andExpect(status().isNotFound()).andExpect(result -> assertEquals(EntityNotFoundException.class,
+						Objects.requireNonNull(result.getResolvedException()).getClass()));
+	}
 
-  /**
-   * Test create.
-   *
-   * @throws Exception the exception
-   */
-  @Test
-  void test_create() throws Exception {
-    var expected = new QuestionnaireDto("First questionnaire", UUID.randomUUID().toString(), LocalDate.now());
-    when(serviceMock.create(expected)).thenReturn(expected);
+	/**
+	 * Test create.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void test_create() throws Exception {
+		var expected = new QuestionnaireDto("First questionnaire", UUID.randomUUID().toString(), LocalDate.now());
+		when(serviceMock.create(expected)).thenReturn(expected);
 
-    mockMvc.perform(post("/api/questionnaire")
-            .contentType("application/json")
-            .content(objectMapper.writeValueAsString(expected)))
-            .andExpect(status().isCreated())
-            .andExpect(result -> assertEquals(expected, objectMapper.readValue(result.getResponse().getContentAsString(), QuestionnaireDto.class)));
-  }
+		mockMvc.perform(post("/api/questionnaire").contentType("application/json")
+				.content(objectMapper.writeValueAsString(expected))).andExpect(status().isCreated())
+				.andExpect(result -> assertEquals(expected,
+						objectMapper.readValue(result.getResponse().getContentAsString(), QuestionnaireDto.class)));
+	}
 
-  /**
-   * Test create should throw 400.
-   *
-   * @throws Exception the exception
-   */
-  @Test
-  void test_create_should_throw_400() throws Exception {
+	/**
+	 * Test create should throw 400.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void test_create_should_throw_400() throws Exception {
 
-    mockMvc.perform(post("/api/questionnaire")
-                    .contentType("application/json"))
-            .andExpect(status().isBadRequest())
-            .andExpect(result -> assertEquals(HttpMessageNotReadableException.class, Objects.requireNonNull(result.getResolvedException()).getClass()));
-  }
+		mockMvc.perform(post("/api/questionnaire").contentType("application/json")).andExpect(status().isBadRequest())
+				.andExpect(result -> assertEquals(HttpMessageNotReadableException.class,
+						Objects.requireNonNull(result.getResolvedException()).getClass()));
+	}
 
-  /**
-   * Test create should throw 400 validation error.
-   *
-   * @throws Exception the exception
-   */
-  @Test
-  void test_create_should_throw_400_validation_error() throws Exception {
-    var dto = new QuestionnaireDto();
+	/**
+	 * Test create should throw 400 validation error.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	void test_create_should_throw_400_validation_error() throws Exception {
+		var dto = new QuestionnaireDto();
 
-    mockMvc.perform(post("/api/questionnaire")
-                    .contentType("application/json")
-                    .content(objectMapper.writeValueAsString(dto))
-                    .accept(MediaType.APPLICATION_JSON))
-                    .andDo(print())
-            .andExpect(status().isBadRequest())
-            .andExpect(result -> assertEquals(HttpMessageNotReadableException.class, Objects.requireNonNull(result.getResolvedException()).getClass()));
-  }
+		mockMvc.perform(post("/api/questionnaire").contentType("application/json")
+				.content(objectMapper.writeValueAsString(dto)).accept(MediaType.APPLICATION_JSON)).andDo(print())
+				.andExpect(status().isBadRequest())
+				.andExpect(result -> assertEquals(HttpMessageNotReadableException.class,
+						Objects.requireNonNull(result.getResolvedException()).getClass()));
+	}
 
-  /**
-   * Test update.
-   */
-  @Test
-  void test_update() {
-  }
+	/**
+	 * Test update.
+	 */
+	@Test
+	void test_update() {
+	}
 
-  /**
-   * Test delete.
-   */
-  @Test
-  void test_delete() {
-  }
+	/**
+	 * Test delete.
+	 */
+	@Test
+	void test_delete() {
+	}
 }

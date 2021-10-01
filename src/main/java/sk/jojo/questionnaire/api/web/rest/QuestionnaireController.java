@@ -24,66 +24,66 @@ import sk.jojo.questionnaire.domain.service.QuestionnaireService;
 @RequestMapping(QuestionnaireController.RESOURCE)
 public class QuestionnaireController implements QuestionnaireAPI {
 
-  /**
-   * The constant RESOURCE.
-   */
-  public static final String RESOURCE = "/api/questionnaire";
+	/**
+	 * The constant RESOURCE.
+	 */
+	public static final String RESOURCE = "/api/questionnaire";
 
-  /**
-   * The Service.
-   */
-  private final QuestionnaireService service;
+	/**
+	 * The Service.
+	 */
+	private final QuestionnaireService service;
 
-  /**
-   * Get questionnaire dto.
-   *
-   * @param id the id
-   * @return the questionnaire dto
-   */
-  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseStatus(HttpStatus.OK)
-  @Override
-  public QuestionnaireDto get(@PathVariable Long id) {
-    return service.get(id);
-  }
+	/**
+	 * Get questionnaire dto.
+	 *
+	 * @param id the id
+	 * @return the questionnaire dto
+	 */
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	@Override
+	public QuestionnaireDto get(@PathVariable Long id) {
+		return service.get(id);
+	}
 
-  /**
-   * Create questionnaire dto.
-   *
-   * @param dto the dto
-   * @return the questionnaire dto
-   */
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseStatus(HttpStatus.CREATED)
-  @Override
-  public QuestionnaireDto create(@RequestBody QuestionnaireDto dto) {
-    return service.create(dto);
-  }
+	/**
+	 * Create questionnaire dto.
+	 *
+	 * @param dto the dto
+	 * @return the questionnaire dto
+	 */
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	@Override
+	public QuestionnaireDto create(@RequestBody QuestionnaireDto dto) {
+		return service.create(dto);
+	}
 
-  /**
-   * Update questionnaire dto.
-   *
-   * @param id the id
-   * @param dto the dto
-   * @return the questionnaire dto
-   */
-  @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseStatus(HttpStatus.OK)
-  @Override
-  public QuestionnaireDto update(@PathVariable Long id, @RequestBody QuestionnaireDto dto) {
-    return service.update(id, dto);
-  }
+	/**
+	 * Update questionnaire dto.
+	 *
+	 * @param id  the id
+	 * @param dto the dto
+	 * @return the questionnaire dto
+	 */
+	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	@Override
+	public QuestionnaireDto update(@PathVariable Long id, @RequestBody QuestionnaireDto dto) {
+		return service.update(id, dto);
+	}
 
-  /**
-   * Delete questionnaire dto.
-   *
-   * @param id the id
-   * @return the questionnaire dto
-   */
-  @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  @ResponseStatus(HttpStatus.OK)
-  @Override
-  public QuestionnaireDto delete(@PathVariable Long id) {
-    return service.delete(id);
-  }
+	/**
+	 * Delete questionnaire dto.
+	 *
+	 * @param id the id
+	 * @return the questionnaire dto
+	 */
+	@DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	@Override
+	public QuestionnaireDto delete(@PathVariable Long id) {
+		return service.delete(id);
+	}
 }
